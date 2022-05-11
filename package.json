@@ -1,0 +1,23 @@
+{
+  "name": "2-angularPractice-admin-pro-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Momfus/angularPractice-admin-pro-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Momfus/angularPractice-admin-pro-backend/issues"
+  },
+  "homepage": "https://github.com/Momfus/angularPractice-admin-pro-backend#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
