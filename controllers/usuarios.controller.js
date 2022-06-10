@@ -1,5 +1,4 @@
 const { response } = require('express');
-
 const Usuario = require('../models/usuario.model');
 
 // Funciones para exportar
@@ -21,6 +20,7 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
 
    const { email, password, nombre } = req.body;
 
+
    // Manejo de errores generales
    try {
 
@@ -31,7 +31,7 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
          return res.status(400).json({
             ok: false,
             msg: "El correo ingresado ya esta registrado"
-         })
+         });
       }
 
       const usuario = new Usuario( req.body );
