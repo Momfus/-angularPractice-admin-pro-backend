@@ -1,6 +1,6 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs'); // Se usa para encriptar contraseñas y se instala con npm i bcryptjs
-
+const { generarJWT } = require('../helpers/jwt');
 
 const Usuario = require('../models/usuario.model');
 
@@ -50,11 +50,14 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
       // Guardar Usuario
       await usuario.save(); // Con await se espera que la promesa save se termine primero (para usarlo debe estar en una función async)
    
+      // Generar el TOKEN - JWT --> El token sirve para tener de forma pasiva el estado del usuario
+      const token = await generarJWT( usuario.id );
+
       res.json( {
    
          ok: true,
-         usuario // colocarlo solo, si se llaman igual, es lo mismo que colocar usuario: usuario
-   
+         usuario, // colocarlo solo, si se llaman igual, es lo mismo que colocar usuario: usuario
+         token
       } );
 
    } catch(error) {
