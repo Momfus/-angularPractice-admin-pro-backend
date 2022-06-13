@@ -1,4 +1,7 @@
 const { response } = require('express');
+const bcrypt = require('bcryptjs'); // Se usa para encriptar contraseñas y se instala con npm i bcryptjs
+
+
 const Usuario = require('../models/usuario.model');
 
 // Funciones para exportar
@@ -16,9 +19,11 @@ const getUsuarios = async (req, res) => {
    } );
 
 };
+
+
 const crearUsuario = async(req, res = response ) => { // "response" se trae de libreria de express para que tenga los autocompletados generales (como los usados en el catch de más abajo)
 
-   const { email, password, nombre } = req.body;
+   const { email, password } = req.body;
 
 
    // Manejo de errores generales
@@ -36,6 +41,11 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
 
       const usuario = new Usuario( req.body );
 
+      // Encriptar contraseña
+      const salt =  bcrypt.genSaltSync();// Número o data generado de forma aleatoria
+      usuario.password = bcrypt.hashSync( password, salt);
+
+      // Guardar Usuario
       await usuario.save(); // Con await se espera que la promesa save se termine primero (para usarlo debe estar en una función async)
    
       res.json( {
