@@ -47,7 +47,7 @@ const UsuarioSchema = Schema({
 // Sobreescribir como devuelve algunos atributos
 UsuarioSchema.method('toJSON', function(){
 
-   const{ __v, _id, ...object } = this.toObject(); // Obtener la instancia actual y extraigo los atributos a cambiar (...object es obtener el restro de los atributos definidos)
+   const{ __v, _id, password, ...object } = this.toObject(); // Obtener la instancia actual y extraigo los atributos a cambiar (...object es obtener el restro de los atributos definidos)
 
    object.uid = _id;
 
