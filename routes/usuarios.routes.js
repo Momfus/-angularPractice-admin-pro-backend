@@ -7,12 +7,13 @@
 const { Router } = require('express');
 const { check } = require('express-validator'); // Para el paquete de validaciones se instala npm i express-validator
 const {validarCampos} = require('../middlewares/validar-campos');
+const { validarJWT } = require('../middlewares/validar-jsw');
 
 const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../controllers/usuarios.controller');
 
 const router = Router();
 
-router.get('/', getUsuarios);
+router.get('/', validarJWT, getUsuarios);
 
 router.post('/', 
    [ // Middlewares
@@ -26,6 +27,7 @@ router.post('/',
 
 router.put('/:id', 
    [
+      validarJWT,
       check('nombre', 'El nombre es obligatorio').not().isEmpty(),
       check('email', 'El email es obligatorio').isEmail(),
       check('role', 'El role es obligatorio').not().isEmpty(),
@@ -35,6 +37,7 @@ router.put('/:id',
 );
 
 router.delete('/:id', 
+   validarJWT,
    borrarUsuario 
 );
 

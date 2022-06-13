@@ -16,7 +16,8 @@ const getUsuarios = async (req, res) => {
    res.json( {
 
       ok: true,
-      usuarios // usuarios: usuarios
+      usuarios, // usuarios: usuarios
+      uid: req.uid
 
    } );
 
@@ -65,7 +66,7 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
       res.status(500).json({
          ok: false,
          msg: 'Error inesperado. Revisar logs'
-      })
+      });
 
    }
 
