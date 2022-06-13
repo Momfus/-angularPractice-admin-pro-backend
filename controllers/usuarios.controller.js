@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs'); // Se usa para encriptar contraseñas y se i
 const Usuario = require('../models/usuario.model');
 
 // Funciones para exportar
+
+// OBTENER
 const getUsuarios = async (req, res) => {
 
    const usuarios= await Usuario.find({}, // Esperar a que obtenga los usuarios (se puede especificar para que devuelva lo que me interesa nomás)
@@ -20,7 +22,7 @@ const getUsuarios = async (req, res) => {
 
 };
 
-
+// CREAR
 const crearUsuario = async(req, res = response ) => { // "response" se trae de libreria de express para que tenga los autocompletados generales (como los usados en el catch de más abajo)
 
    const { email, password } = req.body;
@@ -67,7 +69,7 @@ const crearUsuario = async(req, res = response ) => { // "response" se trae de l
 
 };
 
-
+// ACTUALIZAR
 const actualizarUsuario = async( req, res = response ) => {
 
    // TODO: Validar token y comprobar si es el usuario correcto
@@ -122,8 +124,44 @@ const actualizarUsuario = async( req, res = response ) => {
 
 };
 
+// BORRAR
+const borrarUsuario = async(req, res = response) => {
+
+   const uid = req.params.id;
+
+   try {
+      
+      const usuarioDB = await Usuario.findById( uid );
+
+      if( !usuarioDB ) {
+         return res.status(404).json({
+            ok: false,
+            msg: 'No existe un usuario por ese id'
+         });
+      }
+
+      await Usuario.findOneAndDelete( uid );
+
+      res.json({
+         ok: true,
+         msg: 'Usuario eliminado'
+      });
+   
+   } catch (error) {
+      
+      console.log(error);
+      res.status(500).json({
+         ok: false,
+         msg: 'Hable con el administrador'
+      });
+
+   }
+
+};
+
 module.exports = {
    getUsuarios,
    crearUsuario,
-   actualizarUsuario
+   actualizarUsuario,
+   borrarUsuario
 };
