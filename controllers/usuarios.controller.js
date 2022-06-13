@@ -86,15 +86,12 @@ const actualizarUsuario = async( req, res = response ) => {
       }
 
       // Actualizaciones
-      const campos = req.body;
+      const {password, google, email, ...campos} = req.body; // Extraigo los elementos que me interesan
 
-      // Verificar que sea el mail que quiere cambiar diferente al ingresado (ya que es único)
-      if( usuarioDB.email === req.body.email ) {
-         delete campos.email;
-      } else {
+       // Se fija primero que no exista en otro usuario antes de cambiarlo
+      if( usuarioDB.email != email ) {
 
-         // Se fija primero que no exista en otro usuario antes de cambiarlo
-         const existeEmail = await Usuario.findOne({email: req.body.email});
+         const existeEmail = await Usuario.findOne({email});
 
          if( existeEmail ) {
             return res.status(400).json({
@@ -105,9 +102,7 @@ const actualizarUsuario = async( req, res = response ) => {
 
       }
 
-      delete campos.password; // Dato que no requiero aun si lo manda el usuario
-      delete campos.google; // Dato que no requiero aun si lo manda el usuario
-
+      campos.email = email;
       const usuarioActualizado = await Usuario.findByIdAndUpdate( uid, campos, { new: true });
 
       res.json({
