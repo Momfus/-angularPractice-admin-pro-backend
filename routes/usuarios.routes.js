@@ -6,7 +6,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator'); // Para el paquete de validaciones se instala npm i express-validator
-const {validarCampos} = require('../middlewares/validar-campos')
+const {validarCampos} = require('../middlewares/validar-campos');
 
 const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../controllers/usuarios.controller');
 

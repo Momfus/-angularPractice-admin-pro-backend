@@ -29,7 +29,7 @@ pass: xZRhi568QG3BEJZ0
 
 // Rutas
 app.use('/api/usuarios', require('./routes/usuarios.routes')); // La ruta seguido del controlador para saber que devolver
-
+app.use('/api/login', require('./routes/auth.routes'));
 
 app.listen( process.env.PORT, () => {
    console.log('Servidor corriendo en puerto ' + process.env.PORT);
