@@ -29,6 +29,7 @@ pass: xZRhi568QG3BEJZ0
 
 // Rutas
 app.use('/api/usuarios', require('./routes/usuarios.routes')); // La ruta seguido del controlador para saber que devolver
+app.use('/api/hospitales', require('./routes/hospitales.routes'));
 app.use('/api/login', require('./routes/auth.routes'));
 
 app.listen( process.env.PORT, () => {

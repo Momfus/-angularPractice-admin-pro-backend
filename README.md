@@ -32,3 +32,18 @@ npm install
    * Generación de un JWT
    * Middlewares
    * Optimizar Middlewares
+
+* Parte 3:
+   * CRUD de médicos y hospitales
+   * Una tarea robusta con su respectivo documento y resolución
+   * Códigos útiles de Mongoose
+   * Populate
+   * Gets
+   * Paginar resultados
+   * Búsquedas específicas y globales
+   * Subida de archivos al servidor
+   * Asignación de imagen a un hospital, medico o usuario
+   * Formas de exponer archivos a la web
+   * Manejo del FileSystem
+   * Proteger imágenes
+   * Generar imagen por defecto
