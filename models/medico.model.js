@@ -18,14 +18,22 @@ const MedicoSchema = Schema({
    usuario: {
 
       type: Schema.Types.ObjectId,
-      ref: 'Hospital'
+      ref: 'Usuario',
+      required: true
+
+   },
+   hospital: {
+
+      type: Schema.Types.ObjectId,
+      ref: 'Hospital',
+      required: true
 
    }
 
 }, { collection: 'medicos'}); // Por defecto, moongose le agrega la "s" en plural pero para casos que queramos personalizado, se define de estamanera
 
 // Sobreescribir como devuelve algunos atributos
-HospitalSchema.method('toJSON', function(){
+MedicoSchema.method('toJSON', function(){
 
    const{ __v, ...object } = this.toObject(); // Obtener la instancia actual y extraigo los atributos a cambiar (...object es obtener el restro de los atributos definidos)
    return object;
