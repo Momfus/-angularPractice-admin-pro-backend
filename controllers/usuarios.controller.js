@@ -9,15 +9,36 @@ const Usuario = require('../models/usuario.model');
 // OBTENER
 const getUsuarios = async (req, res) => {
 
-   const usuarios= await Usuario.find({}, // Esperar a que obtenga los usuarios (se puede especificar para que devuelva lo que me interesa nomás)
-      'nombre email role google'   
-   ); 
+   const desde = Number(req.query.desde) || 0; // Caso que no se mande el valor o no sea un número, se envia un 0
+
+
+   /// Manera secuencial (uno a uno con dos await)
+   // const usuarios= await Usuario // Esperar a que obtenga los usuarios (se puede especificar para que devuelva lo que me interesa nomás)
+   //                      .find({}, 'nombre email role google')
+   //                      .skip( desde )
+   //                      .limit( 5 ); // Puede hacerse sino por argumento o cambiar al que se requiera
+
+   // const total = await Usuario.count();
+
+   // En conjunto
+   const [usuarios, total] = await Promise.all([ // Ejecutar todas estas promesas
+
+      // Primera posición de lo que devuelve
+      Usuario 
+            .find({}, 'nombre email role google')
+            .skip( desde )
+            .limit( 5 ),
+      
+      // Segunda posición de lo que devuelve
+      Usuario.count()
+
+   ]);
 
    res.json( {
 
       ok: true,
-      usuarios, // usuarios: usuarios
-      uid: req.uid
+      total,
+      usuarios // usuarios: usuarios
 
    } );
 
