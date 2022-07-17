@@ -1,6 +1,7 @@
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid'); // npm install uuid
-const { actualizarImagen } = require('../helpers/actualizar-imagen');
+const { actualizarImagen, validateMongoID } = require('../helpers/actualizar-imagen');
+
 
 const fileUpload = ( req, res = response ) => {
 
@@ -8,6 +9,15 @@ const fileUpload = ( req, res = response ) => {
    const tipo = req.params.tipo;
    const id = req.params.id;
 
+   // Primero se verifica si el ID es un tipo valido
+   if( !validateMongoID(id) ) {
+      return res.status(400).json({
+         ok: false,
+         msg: 'El ID es incorrecto'
+      });
+   } 
+
+   /// Verificar si es un tipo válido de la tabla
    const tiposValidos = ['hospitales', 'medicos', 'usuarios'];   
 
    if( !tiposValidos.includes(tipo) ) {
@@ -58,6 +68,7 @@ const fileUpload = ( req, res = response ) => {
       }
 
       // Actualizar base de datos
+    
       actualizarImagen(tipo, id, nombreArchivo);
 
       res.json({

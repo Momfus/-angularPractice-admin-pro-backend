@@ -30,7 +30,7 @@ const getUsuarios = async (req, res) => {
             .limit( 5 ),
       
       // Segunda posición de lo que devuelve
-      Usuario.count()
+      Usuario.countDocuments()
 
    ]);
 
