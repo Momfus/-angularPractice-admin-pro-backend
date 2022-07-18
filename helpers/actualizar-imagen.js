@@ -7,9 +7,11 @@ const Medico = require('../models/medico.model');
 const Hospital = require('../models/hospital.model');
 
 
+// Verificar si el tipo de ID es valido
 const validateMongoID = (mongoid) => {
    return mongoose.Types.ObjectId.isValid(mongoid);
 };
+
 
 const borrarImagen = (path) => {
 

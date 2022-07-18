@@ -25,7 +25,7 @@ const getUsuarios = async (req, res) => {
 
       // Primera posición de lo que devuelve
       Usuario 
-            .find({}, 'nombre email role google')
+            .find({}, 'nombre email role google img')
             .skip( desde )
             .limit( 5 ),
       

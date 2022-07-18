@@ -1,3 +1,6 @@
+const path = require('path');
+const fs = require('fs');
+
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid'); // npm install uuid
 const { actualizarImagen, validateMongoID } = require('../helpers/actualizar-imagen');
@@ -82,6 +85,28 @@ const fileUpload = ( req, res = response ) => {
 
 };
 
+
+const retornaImagen = (req, res = response) => {
+
+   const tipo = req.params.tipo;
+   const imagen = req.params.imagen;
+
+
+   const pathImg = path.join( __dirname, `../uploads/${tipo}/${imagen}` );
+
+   // Imagen por defecto
+   if( fs.existsSync(pathImg) )  {
+      res.sendFile( pathImg ); // Enviar el archivo
+   } else {
+      const pathImg = path.join(__dirname, '../assets/img/no-image-available.jpg');
+      res.sendFile(pathImg);
+   }
+
+
+
+};
+
 module.exports =  {
-   fileUpload
+   fileUpload,
+   retornaImagen
 };
