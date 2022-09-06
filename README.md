@@ -47,3 +47,12 @@ npm install
    * Manejo del FileSystem
    * Proteger imágenes
    * Generar imagen por defecto
+
+* Parte 4:
+   * Crear una aplicación en Google Developer Console
+   * Generar el ID de nuestra aplicación y un ID secreto de servidor
+   * Crear un login básico de pruebas usando el API de Google
+   * Generar un Token desde el front-end
+   * Validad el Token en nuestro back-end
+   * Tip para generar la documentación de nuestros servicios automáticamente
+   

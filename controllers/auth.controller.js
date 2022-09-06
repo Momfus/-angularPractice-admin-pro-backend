@@ -52,7 +52,17 @@ const login = async(req, res = response ) => {
 
 };
 
+// Este es para el login con google
+const googleSignIn = async(req, res = response ) => {
+   
+   res.status(500).json({
+      ok: true,
+      msg: req.body.token
+   });
+
+};
 
 module.exports =  {
-   login
+   login,
+   googleSignIn
 };

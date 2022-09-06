@@ -12,6 +12,9 @@ const app = express();
 // Coonfigurar CORS
 app.use( cors() ); // Esto es un middleware es una función que siempre se va a ejecutar de las lineas hacia abajo (en este caso siempre que haya una petición, ejecutara el cors)
 
+// Carpeta pública
+app.use( express.static('public') ); // Le dice al servidor express que cuando se llega al root del servidor, se use esta carpeta
+
 // Lectura y parseo del body
 app.use( express.json() ); // Antes de las rutas para que lo arme correctamente
 
