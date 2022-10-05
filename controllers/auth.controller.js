@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs'); // Se usa para encriptar contraseñas y se i
 
 const Usuario = require('../models/usuario.model');
 const { generarJWT } = require('../helpers/jwt');
+const { googleVerify } = require('../helpers/google-verify');
 
 const login = async(req, res = response ) => {
 
@@ -55,10 +56,26 @@ const login = async(req, res = response ) => {
 // Este es para el login con google
 const googleSignIn = async(req, res = response ) => {
    
-   res.status(500).json({
-      ok: true,
-      msg: req.body.token
-   });
+   try {
+      
+      const { email, name, picture } = await googleVerify( req.body.token ); // para obtener todo es colocar nomas una variable (como googleUser) pero para algunas cosas específicas desestructuro
+
+
+      res.json({
+         ok: true,
+         email, name, picture // y aca se colocaria si hubiera usado variable para tener todo, simplemente googleUser
+      });
+      
+   } catch (error) {
+
+      console.log(error);
+      res.status(400).json({
+         ok: false,
+         msg: 'Token de google no es correcto'
+      });
+
+   }
+
 
 };
 
