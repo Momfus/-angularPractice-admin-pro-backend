@@ -15,6 +15,8 @@ const login = async(req, res = response ) => {
       // Verificar email
       const usuarioDB = await Usuario.findOne({ email });
 
+
+
       if( !usuarioDB ) {
          return res.status(404).json({
             ok: false,
@@ -60,6 +62,32 @@ const googleSignIn = async(req, res = response ) => {
       
       const { email, name, picture } = await googleVerify( req.body.token ); // para obtener todo es colocar nomas una variable (como googleUser) pero para algunas cosas específicas desestructuro
 
+      // Verificar si existe el email
+      const usuarioDB = await Usuario.findOne({ email });
+
+      let usuario;
+
+      if( !usuarioDB ) {
+         usuario = new Usuario({
+            nombre: name,
+            email, // email:email
+            password: '@@@', // Es solo para indicar que es requerido, el mismo se hace por un hash asi que no es que usará este
+            img: picture,
+            google: true
+         });
+      } else {
+
+         usuario = usuarioDB; // En caso que existe, ya se carga con los datos que tiene.
+         usuario.google = true;
+
+      }
+
+      // Almacenarlo fisicamente en la base de datos
+      await usuario.save();
+
+      // Generar json web token (JWT)
+      const token = await generarJWT( usuario.id );
+      console.log(req.body.token);
 
       res.json({
          ok: true,
