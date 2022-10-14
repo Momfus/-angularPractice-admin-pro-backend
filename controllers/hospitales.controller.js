@@ -45,13 +45,46 @@ const crearHospital = async(req, res = response) => {
 };
 
 
-const actualizarHospital = (req, res = response) => {
+const actualizarHospital = async(req, res = response) => {
 
-   res.json({
-      ok: true,
-      msg: 'actualizarHospital'
-   });
-   
+   const id = req.params.id;
+   const uid = req.params.uid;
+
+   try {
+
+      const hospitalDB = await Hospital.findById( id );
+
+      // En caso que no exista en el DB
+      if( !hospitalDB ) {
+         return res.status(404).json({
+            ok: true,
+            msg: 'Hospita no encontrado',
+         });
+      }
+
+      // Actualizar hospital
+      const cambiosHospital = { // obtengo directamente todos los datos del hospital y que el usuario tenga del que esta actualizando
+         ...req.body,
+         usuario: uid
+      };
+
+      const hospitalActualizado = await Hospital.findByIdAndUpdate(id, cambiosHospital, {new: true }); // El último parámetro regresa el último documento ya actualizado
+
+      res.json({
+         ok: true,
+         hospital: hospitalActualizado
+      });
+
+   } catch(error) {
+
+      console.log(error);
+
+      res.status(500).json({
+         ok: false,
+         msg: 'Hable con el administrador'
+      });
+
+   }
 };
 
 const borrarHospital = (req, res = response) => {
