@@ -58,7 +58,7 @@ const actualizarHospital = async(req, res = response) => {
       if( !hospitalDB ) {
          return res.status(404).json({
             ok: true,
-            msg: 'Hospita no encontrado',
+            msg: 'Hospital no encontrado',
          });
       }
 
