@@ -55,4 +55,9 @@ npm install
    * Generar un Token desde el front-end
    * Validad el Token en nuestro back-end
    * Tip para generar la documentación de nuestros servicios automáticamente
+
+* Parte 5:
+   * Creación de los CRUD faltantes de médicos y hospitales
+   * Se sigue con los temas de modelos, grabaciones, queries, endpoints faltantes.
+   * Terminar backend para conectarlo posteriormente con proyecto de angular
    

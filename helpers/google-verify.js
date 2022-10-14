@@ -13,10 +13,7 @@ async function googleVerify( token ) {
 
   const payload = ticket.getPayload();
   
-  console.log({ payload }); // aca viene toda la información del usuario, correo, googleId, etc
-
-  // If request specified a G Suite domain:
-  // const domain = payload['hd'];
+//   console.log({ payload }); // aca viene toda la información del usuario, correo, googleId, etc
 
    return payload;
 
