@@ -59,7 +59,7 @@ const login = async(req, res = response ) => {
 const googleSignIn = async(req, res = response ) => {
    
    try {
-      
+      console.log('PRUEBA >>>>>>>>');
       const { email, name, picture } = await googleVerify( req.body.token ); // para obtener todo es colocar nomas una variable (como googleUser) pero para algunas cosas específicas desestructuro
 
       // Verificar si existe el email
@@ -91,7 +91,7 @@ const googleSignIn = async(req, res = response ) => {
 
       res.json({
          ok: true,
-         email, name, picture // y aca se colocaria si hubiera usado variable para tener todo, simplemente googleUser
+         email, name, picture, token // y aca se colocaria si hubiera usado variable para tener todo, simplemente googleUser
       });
       
    } catch (error) {
