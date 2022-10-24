@@ -7,7 +7,6 @@ const { googleVerify } = require('../helpers/google-verify');
 
 const login = async(req, res = response ) => {
 
-
    const {email, password } = req.body;
 
    try {
@@ -59,7 +58,7 @@ const login = async(req, res = response ) => {
 const googleSignIn = async(req, res = response ) => {
    
    try {
-      console.log('PRUEBA >>>>>>>>');
+
       const { email, name, picture } = await googleVerify( req.body.token ); // para obtener todo es colocar nomas una variable (como googleUser) pero para algunas cosas específicas desestructuro
 
       // Verificar si existe el email
