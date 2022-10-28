@@ -61,3 +61,10 @@ npm install
    * Se sigue con los temas de modelos, grabaciones, queries, endpoints faltantes.
    * Terminar backend para conectarlo posteriormente con proyecto de angular
    
+* Parte 6:
+  * Módulo de pipes
+  * Pipe para controlar la imagen a desplegar
+  * Subida de imagen desde el Front-end hasta el Back-end
+  * Crear el componente del perfil del usuario.
+  * Notificar actualización de imagen
+  * Vista previa de la imagen seleccionada en tiempo real (sin subirla al backend)
