@@ -129,7 +129,17 @@ const actualizarUsuario = async( req, res = response ) => {
 
       }
 
-      campos.email = email;
+      if( !usuarioDB.google ) {
+         campos.email = email; // Solo para los usuarios que no son con login de google
+      } else if( usuarioDB.email !== email ) { // Se bloquea el caso que si es de google y cambia por accidente la imagen, pero es doble verificación por las dudas
+
+         return res.status(400).json({
+            ok: false,
+            msg: 'Usuario de google no pueden cambiar su correo'
+         });
+
+      }
+
       const usuarioActualizado = await Usuario.findByIdAndUpdate( uid, campos, { new: true });
 
       res.json({
