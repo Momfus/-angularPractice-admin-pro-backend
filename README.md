@@ -68,3 +68,12 @@ npm install
   * Crear el componente del perfil del usuario.
   * Notificar actualización de imagen
   * Vista previa de la imagen seleccionada en tiempo real (sin subirla al backend)
+
+* Parte 7:
+  * Detalles sobr el pipe de las imagenes
+  * Componentes Médico y médicos
+  * Borrar médicos
+  * Crear nuevo médico
+  * Mostrar información en base a una selección de un hospital
+  * Cargar médico
+  * Actualizar registro de un médico
