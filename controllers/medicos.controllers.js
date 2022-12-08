@@ -33,24 +33,14 @@ const getMedicoById = async (req, res = response) => {
 
    try {
 
-      if( id == 'nuevo') {
-
-         res.json({
-            ok: true,
-            undefined
-         });
-
-      } else {
-         const medico = await Medico.findById( id )
-                                       .populate('usuario', 'nombre img')
-                                       .populate('hospital', 'nombre img');
-      
-                                    
-         res.json({
-            ok: true,
-            medico
-         });
-      }
+      const medico = await Medico.findById( id )
+                                    .populate('usuario', 'nombre img')
+                                    .populate('hospital', 'nombre img');
+   
+      res.json({
+         ok: true,
+         medico
+      });
       
    } catch (error) {
       
