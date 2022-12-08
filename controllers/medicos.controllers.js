@@ -5,16 +5,65 @@ const Medico = require('../models/medico.model');
 
 const getMedicos = async (req, res = response) => {
 
-   const medicos = await Medico.find()
-                           .populate('usuario', 'nombre img')
-                           .populate('hospital', 'nombre img');
+   const desde= Number(req.query.desde ) || 0; // Caso que no se mande el valor o no sea un número, se envia un 0
 
+   const [medicos, total] = await Promise.all([
+
+      Medico
+      .find( {}, 'nombre img usuario hospital')
+      .populate('usuario', 'nombre img')
+      .populate('hospital', 'nombre img')
+      .skip(desde)
+      .limit( 5 ),
+
+      Medico.countDocuments()
+   ]);
+   
    res.json({
       ok: true,
+      total,
       medicos
    });
 
 };
+
+const getMedicoById = async (req, res = response) => {
+
+   const id = req.params.id;
+
+   try {
+
+      if( id == 'nuevo') {
+
+         res.json({
+            ok: true,
+            undefined
+         });
+
+      } else {
+         const medico = await Medico.findById( id )
+                                       .populate('usuario', 'nombre img')
+                                       .populate('hospital', 'nombre img');
+      
+                                    
+         res.json({
+            ok: true,
+            medico
+         });
+      }
+      
+   } catch (error) {
+      
+      console.log(error);
+      res.status(500).json({
+         ok: false,
+         msg: 'Hable con el administrador'
+      });
+
+   }
+
+};
+
 
 const crearMedico = async (req, res = response) => {
 
@@ -113,7 +162,7 @@ const borrarMedico = async(req, res = response) => {
 
       res.json({
          ok: true,
-         msg: 'Hospital eliminado'
+         msg: 'Médico eliminado'
       });
 
    } catch (error) {
@@ -130,6 +179,7 @@ const borrarMedico = async(req, res = response) => {
 
 module.exports = {
    getMedicos,
+   getMedicoById,
    crearMedico,
    actualizarMedico,
    borrarMedico

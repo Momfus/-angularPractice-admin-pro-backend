@@ -1,18 +1,19 @@
 
-const { response } = require('express')
+const { response } = require('express');
 
 const Hospital = require('../models/hospital.model');
 
 const getHospitales = async(req, res = response) => {
 
    const desde = Number(req.query.desde) || 0; // Caso que no se mande el valor o no sea un número, se envia un 0
+   const limite = Number(req.query.limite) || 0;
 
    const [hospitales, total] = await Promise.all([
 
       Hospital
          .find({}, 'nombre img usuario')
          .skip( desde )
-         .limit( 5 ),
+         .limit( limite ),
 
       Hospital.countDocuments()
 
