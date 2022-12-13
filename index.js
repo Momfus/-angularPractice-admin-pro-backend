@@ -2,6 +2,8 @@
 
 require('dotenv').config(); // Traer las variables de entorno en el archivo .env
 
+const path = require('path'); // Viene de la parte de node para manejar rutas directamente
+
 const express = require('express'); // Idem a importar librerias
 const cors = require('cors'); // Se instala con "npm i cors" (sirve para hacer las configuraciones en el servidor para que acepte peticiones en diferentes dominios)
 const { dbConnection } = require('./database/config');
@@ -37,6 +39,11 @@ app.use('/api/medicos', require('./routes/medicos.routes'));
 app.use('/api/todo', require('./routes/busquedas.routes'));
 app.use('/api/login', require('./routes/auth.routes'));
 app.use('/api/upload', require('./routes/uploads.routes'));
+
+// Lo último si no es ninguna de las anteriroes rutas (al recargar la página en producción, generalmente envia como que no puede acceder a la ruta al no encontrar las anteriores)
+app.get('*', (req, res) => {
+   res.sendFile( path.resolve( __dirname, 'public/index.html' ) );
+});
 
 app.listen( process.env.PORT, () => {
    console.log('Servidor corriendo en puerto ' + process.env.PORT);
